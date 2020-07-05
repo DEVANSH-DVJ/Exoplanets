@@ -18,6 +18,7 @@ def alpha_wrt_time(e=0.0, split=1000):
 
     # return lambda time : alpha_array[int((time%1) * split)]
     def alphas(time):
+        nonlocal split, alpha_array
         t = time % 1
         n = time * split
         return alpha_array[int(n)]

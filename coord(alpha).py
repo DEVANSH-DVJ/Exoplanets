@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patch
 
 
-def coord(a, e, i, w):
+def coord_wrt_alpha(a, e, i, w):
     if a * (1 - e) <= 1.0:
         raise NameError('The planet enter the star, check the params!')
 
     def xy(alpha):
+        nonlocal a, e, i, w
         angle = alpha + w
         r = a * (1 - e**2) / (1 + e * np.cos(alpha))
         x = r * np.cos(angle)
@@ -17,6 +18,7 @@ def coord(a, e, i, w):
         return x, y
 
     def xyz(alpha):
+        nonlocal a, e, i, w
         angle = alpha + w
         r = a * (1 - e**2) / (1 + e * np.cos(alpha))
         x = r * np.cos(angle)
@@ -44,7 +46,7 @@ if __name__ == '__main__':
     i *= (np.pi / 180)
     w *= (np.pi / 180)
 
-    loc_2d, loc_3d = coord(a, e, i, w)
+    loc_2d, loc_3d = coord_wrt_alpha(a, e, i, w)
 
     fig = plt.figure(figsize=(10, 20))
     ax1 = fig.add_subplot(121)
