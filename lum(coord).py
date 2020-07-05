@@ -1,15 +1,32 @@
 import sys
+import time
+
+import copy
+import random
 
 import numpy as np
 import matplotlib.pyplot as plt
-import copy
-import time
-import random
 
 
 def limb_dark_two_params(cosine):
     u = [0.1, 0.2]
     return 1 - u[0] * (1 - cosine) - u[1] * ((1 - cosine)**2)
+
+
+def initialize_star(limb_func, split=1000):
+    star = np.zeros((2 * split + 1, 2 * split + 1))
+    total = 0
+    for i in range(-split, split + 1):
+        rg_j = abs(int((split**2 - i**2)**0.5))
+        for j in range(-rg_j, rg_j + 1):
+            x = (i) / split
+            y = (j) / split
+            cosine = abs((1 - x**2 - y**2)**0.5)
+            lum = limb_func(cosine)
+            total += lum
+            star[split + i][split + j] = lum
+
+    return star, total
 
 
 def lum_wrt_coord(img, tot):
@@ -38,22 +55,6 @@ def lum_wrt_coord(img, tot):
         return img
 
     return shadow, lum, star
-
-
-def initialize_star(limb_func, split=1000):
-    star = np.zeros((2 * split + 1, 2 * split + 1))
-    total = 0
-    for i in range(-split, split + 1):
-        rg_j = abs(int((split**2 - i**2)**0.5))
-        for j in range(-rg_j, rg_j + 1):
-            x = (i) / split
-            y = (j) / split
-            cosine = abs((1 - x**2 - y**2)**0.5)
-            lum = limb_func(cosine)
-            total += lum
-            star[split + i][split + j] = lum
-
-    return star, total
 
 
 if __name__ == '__main__':
