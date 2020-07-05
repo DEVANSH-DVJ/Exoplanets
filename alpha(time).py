@@ -10,8 +10,8 @@ def der_alpha(t, alpha, e):
 
 
 def alpha_wrt_time(e=0.0, split=1000):
-    t_span = (0, 1)
-    t = np.linspace(0, 1, split + 1)
+    t_span = (0.0, 1.0)
+    t = np.linspace(0.0, 1.0, split + 1)
     y0 = np.array([0])
     sol = solve_ivp(der_alpha, t_span, y0, t_eval=t, args=(e,))
     alpha_array = sol.y[0]
@@ -19,9 +19,12 @@ def alpha_wrt_time(e=0.0, split=1000):
     # return lambda time : alpha_array[int((time%1) * split)]
     def alphas(time):
         nonlocal split, alpha_array
-        t = time % 1
+        t = time % 1.0
         n = time * split
-        return alpha_array[int(n)]
+        if int(n) < split:
+            return alpha_array[int(n)]
+        else:
+            return alpha_array[-1]
 
     return alphas
 
