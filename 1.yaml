@@ -3,14 +3,14 @@ star_mass:              1.0
 planets:
     - semi-major:       8.0
       eccentricity:     0.3
-      periastron_angle: 20.0
+      periastron_angle: 0.0
       inclination:      89.9
       planet_radius:    0.1
 
     - semi-major:       4.0
       eccentricity:     0.3
-      periastron_angle: 20.0
-      inclination:      89.9
+      periastron_angle: 95.0
+      inclination:      89.8
       planet_radius:    0.2
 u:
     - 0.7
