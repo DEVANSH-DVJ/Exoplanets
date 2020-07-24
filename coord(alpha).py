@@ -1,8 +1,8 @@
 import sys
 
-import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib.patches as patch
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def coord_wrt_alpha(a, e, i, w):

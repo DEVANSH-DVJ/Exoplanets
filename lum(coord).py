@@ -1,11 +1,9 @@
-import sys
-import time
-
 import copy
 import random
+import time
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def limb_dark_two_params(cosine):

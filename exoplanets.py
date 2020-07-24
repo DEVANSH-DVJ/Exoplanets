@@ -1,14 +1,11 @@
+import copy
 import os
 import sys
 import time
 
-import copy
-import random
-import yaml
-
-import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import solve_ivp
+import numpy as np
+import yaml
 
 dir = os.path.dirname(__file__)
 
@@ -18,6 +15,7 @@ initialize_star = __import__("lum(coord)").initialize_star
 lum_wrt_coord = __import__("lum(coord)").lum_wrt_coord
 
 params_file = os.path.join(os.path.dirname(__file__), "1.yaml")
+
 
 class system(object):
     def __init__(self, file_name, time_split=100, img_split=100, n=1.0):
