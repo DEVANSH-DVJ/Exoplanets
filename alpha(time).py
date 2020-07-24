@@ -9,7 +9,7 @@ def der_alpha(t, alpha, e):
     return (2 * np.pi / (1 - e * e)**1.5) * (1 + e * np.cos(alpha))**2
 
 
-def alpha_wrt_time(e=0.0, split=1000):
+def alpha_wrt_time(e=0.0, split=1000, first_periastron=0.0):
     t_span = (0.0, 1.0)
     t = np.linspace(0.0, 1.0, split + 1)
     y0 = np.array([0])
@@ -19,7 +19,7 @@ def alpha_wrt_time(e=0.0, split=1000):
     # return lambda time : alpha_array[int((time%1) * split)]
     def alphas(time):
         nonlocal split, alpha_array
-        time = time % 1.0
+        time = (time - first_periastron) % 1.0
         n = time * split
         if int(n) < split:
             return alpha_array[int(n)]
@@ -29,13 +29,16 @@ def alpha_wrt_time(e=0.0, split=1000):
 
 if __name__ == '__main__':
     try:
-        split = 1000
-        e = 0.0
+        e = 0.0  # eccentricity
+        split = 1000  # time split
+        first_periastron = 0.0  # t/P where t is the time at first periastron
         if len(sys.argv) == 2:
             e = float(sys.argv[1])
         elif len(sys.argv) == 3:
             e, split = float(sys.argv[1]), int(sys.argv[2])
-        func = alpha_wrt_time(e, split)
+        elif len(sys.argv) == 4:
+            e, split, first_periastron = float(sys.argv[1]), int(sys.argv[2]), float(sys.argv[3])
+        func = alpha_wrt_time(e, split, first_periastron)
     except:
         raise NameError('Check the params again!')
 
