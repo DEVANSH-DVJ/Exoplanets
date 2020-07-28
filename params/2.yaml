@@ -6,7 +6,7 @@ planets:
       periastron_angle: 0.0
       inclination:      89.9
       planet_radius:    0.1
-      first_periastron: 0.4
+      first_periastron: 0.0
 
     - semi-major:       4.0
       eccentricity:     0.3

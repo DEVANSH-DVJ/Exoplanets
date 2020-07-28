@@ -57,12 +57,12 @@ def lum_wrt_coord(img, tot):
 
 if __name__ == '__main__':
     start = time.time()
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Start"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Start'))
     split = 1000
     star, total = initialize_star(limb_dark_two_params, split)
     print(total)
 
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Initialized Star"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Initialized Star'))
     fig, ax = plt.subplots(nrows=4, ncols=4, figsize=(10, 20))
     fig.tight_layout(pad=5.0)
     update, get_total, get_star = lum_wrt_coord(copy.deepcopy(star), copy.deepcopy(total))
@@ -75,18 +75,18 @@ if __name__ == '__main__':
 
             update(x / 100, y / 100, Rp / 100)
             ax[i][j].imshow(get_star(), 'gray')
-            ax[i][j].set_title("{}, {}, {} : {}".format(x, y, Rp, get_total()))
+            ax[i][j].set_title('{}, {}, {} : {}'.format(x, y, Rp, get_total()))
 
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Made the plots"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Made the plots'))
     plt.show()
 
     start = time.time()
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Start"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Start'))
     split = 1000
     star, total = initialize_star(limb_dark_two_params, split)
     print(total)
 
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Initialized Star"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Initialized Star'))
     update, get_total, _ = lum_wrt_coord(copy.deepcopy(star), copy.deepcopy(total))
 
     for i in range(4):
@@ -97,4 +97,4 @@ if __name__ == '__main__':
 
             update(x / 100, y / 100, Rp / 100)
 
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Completed calculation"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Completed calculation'))

@@ -9,18 +9,16 @@ import yaml
 
 dir = os.path.dirname(__file__)
 
-alpha_wrt_time = __import__("alpha(time)").alpha_wrt_time
-coord_wrt_alpha = __import__("coord(alpha)").coord_wrt_alpha
-initialize_star = __import__("lum(coord)").initialize_star
-lum_wrt_coord = __import__("lum(coord)").lum_wrt_coord
-
-params_file = os.path.join(os.path.dirname(__file__), "1.yaml")
+alpha_wrt_time = __import__('alpha(time)').alpha_wrt_time
+coord_wrt_alpha = __import__('coord(alpha)').coord_wrt_alpha
+initialize_star = __import__('lum(coord)').initialize_star
+lum_wrt_coord = __import__('lum(coord)').lum_wrt_coord
 
 
 class system(object):
     def __init__(self, file_name, time_split=100, img_split=100, n=1.0):
         try:
-            params_file = os.path.join(os.path.dirname(__file__), "params/" + file_name)
+            params_file = os.path.join(os.path.dirname(__file__), 'params', file_name)
             with open(params_file, 'r') as stream:
                 data = yaml.safe_load(stream)
             self.time_split = time_split
@@ -82,15 +80,15 @@ class system(object):
 
 if __name__ == '__main__':
     start = time.time()
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Start"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Start'))
 
-    params_file = "1.yaml"
+    params_file = '1.yaml'
     if len(sys.argv) > 1:
         params_file = sys.argv[1]
 
     exoplanets = system(params_file, time_split=10000, img_split=100, n=1.0)
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Initialized the Exoplanets system"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Initialized the Exoplanets system'))
     lum = exoplanets.output()
     plt.scatter(exoplanets.timespan, lum, s=1, c='b')
-    print("Time : {} seconds; {}".format(round(time.time() - start, 2), "Made the plots"))
+    print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Made the plots'))
     plt.show()
