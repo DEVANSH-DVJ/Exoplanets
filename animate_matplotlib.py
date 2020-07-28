@@ -16,8 +16,10 @@ def update_graph(num, total, scat):
     #     if num % total == i:
     #         size_array[i] = 10
     size_array = [10 if num % total == i else 1 for i in range(total)]
-    scat.set_sizes(size_array)
     return scat,
+    color_array = ['r' if num % total > i else 'b' for i in range(total)]
+    scat[0].set_sizes(size_array)
+    scat[1].set_color(color_array)
 
 
 params_file = '1.yaml'
@@ -29,8 +31,8 @@ time_coord = system.coords()
 timespan = system.timespan
 lum = system.output()
 
-fig = plt.figure()
 scat = plt.scatter(timespan, lum, s=1, c='b')
+fig = plt.figure(figsize=(10, 10))
 
 anim = animation.FuncAnimation(fig, update_graph, frames=len(timespan), interval=2,
                                repeat=True, fargs=(len(timespan), scat), blit=True)
