@@ -12,7 +12,7 @@ planets:
       eccentricity:     0.3
       periastron_angle: 95.0
       inclination:      89.8
-      planet_radius:    0.2
+      planet_radius:    0.7
       first_periastron: 0.7
 u:
     - 0.7
