@@ -9,6 +9,9 @@ dir = os.path.dirname(__file__)
 
 exoplanets = __import__('exoplanets').system
 
+start = time.time()
+print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Start'))
+
 
 def update_graph(num, total, scat, ax):
     # size_array = [1 for i in range(total)]
@@ -49,3 +52,5 @@ anim = animation.FuncAnimation(fig, update_graph, frames=len(timespan), interval
 ffmpeg_writer = animation.FFMpegWriter(fps=50)
 now = time.strftime('%Y_%m_%d_%H_%M', time.localtime(time.time()))
 anim.save('{}.mp4'.format(now), writer=ffmpeg_writer)
+
+print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Made the animation'))

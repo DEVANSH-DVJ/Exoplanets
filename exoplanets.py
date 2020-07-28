@@ -60,7 +60,8 @@ class system(object):
 
                 update(x, y, planet['planet_radius'])
             lum.append(get_lum())
-        return lum
+        lum = np.array(lum)
+        return lum / max(lum)
 
     def coords(self):
         time_coord = []
