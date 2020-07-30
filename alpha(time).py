@@ -30,14 +30,14 @@ def alpha_wrt_time(e=0.0, split=1000, first_periastron=0.0):
 if __name__ == '__main__':
     try:
         e = 0.0  # eccentricity
-        split = 1000  # time split
         first_periastron = 0.0  # t/P where t is the time at first periastron
+        split = 1000  # time split
         if len(sys.argv) == 2:
             e = float(sys.argv[1])
         elif len(sys.argv) == 3:
-            e, split = float(sys.argv[1]), int(sys.argv[2])
+            e, first_periastron = float(sys.argv[1]), float(sys.argv[2])
         elif len(sys.argv) == 4:
-            e, split, first_periastron = float(sys.argv[1]), int(sys.argv[2]), float(sys.argv[3])
+            e, first_periastron, split = float(sys.argv[1]), float(sys.argv[2]), int(sys.argv[3])
         func = alpha_wrt_time(e, split, first_periastron)
     except:
         raise NameError('Check the params again!')
@@ -45,20 +45,23 @@ if __name__ == '__main__':
     t = np.linspace(0, 1, split + 1)
     alphas = [func(time) for time in t]
 
-    fig = plt.figure(figsize=(12, 16))
+    fig = plt.figure(figsize=(10, 10))
     ax1 = fig.add_subplot(211)
     ax2 = fig.add_subplot(212)
 
     ax1.scatter(t, alphas, s=1)
-    ax1.set_xlabel('t')
-    ax1.set_ylabel('aplha')
-    ax1.set_title('time')
+    ax1.set_xticks([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax1.set_yticks([0, np.pi * 0.5, np.pi, np.pi * 1.5, np.pi * 2])
+    ax1.set_yticklabels([r'$0$', r'$\pi/2$', r'$\pi$', r'$3\pi/2$', r'$2\pi$'])
+    ax1.set_xlabel(r'$t$')
+    ax1.set_ylabel(r'$\alpha$')
     ax1.grid(True)
 
     ax2.scatter(t, np.sin(alphas), s=1)
-    ax2.set_xlabel('t')
-    ax2.set_ylabel('sin(aplha)')
-    ax2.set_title('time')
+    ax2.set_xticks([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+    ax2.set_xlabel(r'$t$')
+    ax2.set_ylabel(r'$sin(\alpha)$')
     ax2.grid(True)
 
+    plt.savefig(fname='plots/alpha-time/{} {}.jpeg'.format(e, first_periastron), dpi=500, pad_inches=0.0, quality=100)
     plt.show()
