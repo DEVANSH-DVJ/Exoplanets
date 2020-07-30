@@ -29,13 +29,18 @@ fig = plt.figure(figsize=(10, 10))
 
 ax1 = fig.add_axes([0.6, 0.1, 0.3, 0.3])  # ax[0]
 ax2 = fig.add_axes([0.1, 0.6, 0.3, 0.3])  # ax[1]
+scat2 = ax2.plot(timespan, lum)
+x_lim = ax2.get_xlim()
+y_lim = ax2.get_ylim()
 for num in range(total):
-    # print(num)
+    ax1.cla()
+    ax2.cla()
     size_array = [10 if num == i else 1 for i in range(total)]
     color_array = ['r-' if num > i else 'b-' for i in range(total)]
     scat1 = ax1.scatter(timespan, lum, s=size_array, c='b')
     scat2 = ax2.plot(timespan[:num], lum[:num], 'b-')
-    ax2.set_xlim(max(timespan) * -0.1, max(timespan) * 1.1)
+    ax2.set_xlim(x_lim)
+    ax2.set_ylim(y_lim)
 
     ax1.set(title='Axes 1 : {}'.format(num))
     ax2.set(title='Axes 2 : {}'.format(num))
