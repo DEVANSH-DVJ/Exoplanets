@@ -37,7 +37,11 @@ if __name__ == '__main__':
     a = 4.0  # in terms of Rs
     e = 0.4
     i = 0  # deg
-    w = 0  # deg
+    w = 10  # deg
+    a1 = 7.0  # in terms of Rs
+    e1 = 0.4
+    i1 = 0  # deg
+    w1 = 60  # deg
     if len(sys.argv) == 2:
         a = float(sys.argv[1])
     elif len(sys.argv) == 3:
@@ -52,6 +56,19 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(10, 10))
     ax1 = fig.add_subplot(111)
     # ax2 = fig.add_subplot(122, projection='3d')
+
+    for x in range(360):
+        alpha = x * (np.pi / 180)
+        x, y, z = loc_3d(alpha)
+        if x**2 + y**2 < 1.0:
+            if z > 0:
+                ax1.scatter(x, y, c='g', s=1, zorder=15)
+            else:
+                ax1.scatter(x, y, c='g', s=1, zorder=5)
+        else:
+            ax1.scatter(x, y, c='k', s=1, zorder=15)
+
+    loc_2d, loc_3d = coord_wrt_alpha(a1, e1, i1, w1)
 
     for x in range(360):
         alpha = x * (np.pi / 180)
@@ -87,8 +104,8 @@ if __name__ == '__main__':
     # ax2.set_zlim(-2 * a, 2 * a)
     # ax2.view_init(45, 45)
 
-    ax1.set_title(r'$a={},\ e={},\ i={},\ w={}$'.format(a, e, i, w))
+    ax1.set_title(r'$Planet 1 : a={},\ e={},\ i={},\ w={}$'.format(a, e, i, w)+'\n'+r'$Planet 2 : a={},\ e={},\ i={},\ w={}$'.format(a1, e1, i1, w1))
     ax1.grid(True)
 
-    plt.savefig(fname='plots/coord-alpha/{} {} {} {}.jpeg'.format(a, e, i, w), dpi=500, pad_inches=0.0, quality=100)
+    plt.savefig(fname='plots/coord-alpha/2 planets - 0.jpeg'.format(a, e, i, w), dpi=500, pad_inches=0.0, quality=100)
     plt.show()
