@@ -46,6 +46,6 @@ for num in range(total):
 anim = camera.animate()
 ffmpeg_writer = animation.FFMpegWriter(fps=10)
 now = time.strftime('%Y_%m_%d_%H_%M', time.localtime(time.time()))
-anim.save('{}.mp4'.format(now), writer=ffmpeg_writer)
+anim.save('animations/{}.mp4'.format(now), writer=ffmpeg_writer)
 
 print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Made the animation'))
