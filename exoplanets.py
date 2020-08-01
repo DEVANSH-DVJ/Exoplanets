@@ -5,6 +5,7 @@ import time
 
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy
 import yaml
 
 dir = os.path.dirname(__file__)
@@ -27,9 +28,9 @@ class system(object):
             self.star_radius = data['star_radius']
             self.star_mass = data['star_mass']
             self.u = data['u']
+            period_constant = (2 * np.pi) / ((scipy.constants.G * self.star_mass * 1.989e30)**0.5)
             for planet in self.planets:
-                # period_constant = (2 * np.pi) / ((scipy.constants.G * star_mass)**0.5)
-                planet['period'] = (200.0 / (self.star_mass)**0.5) * (planet['semi-major']**1.5)
+                planet['period'] = period_constant * ((planet['semi-major']*6.96e8)**1.5) / (36 * 24) # days
             self.total_time = max([planet['period'] for planet in self.planets])
         except:
             raise NameError('Check the params!')
@@ -87,9 +88,20 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         params_file = sys.argv[1]
 
-    exoplanets = system(params_file, time_split=10000, img_split=100, n=1.0)
+    n = 2.0
+    exoplanets = system(params_file, time_split=10000, img_split=100, n=n)
     print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Initialized the Exoplanets system'))
     lum = exoplanets.output()
-    plt.scatter(exoplanets.timespan, lum, s=1, c='b')
+
+    fig = plt.figure(figsize=(20,12))
+    ax = fig.add_subplot(111)
+    ax.scatter(exoplanets.timespan/100, lum, s=1, c='b')
+    ax.set_xlim(0, max(exoplanets.timespan)/100)
+    ax.tick_params(axis='x', labelsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.set_xlabel('Time in days', fontsize=18)
+    ax.set_ylabel('Relative luminosity', fontsize=18)
+    ax.set_title('Multiple Exoplanets - {} Planet system'.format(len(exoplanets.planets)), fontsize=22)
+    ax.grid(True)
+    plt.savefig(fname='plots/exoplanets/{} {}.jpeg'.format(params_file[:-5], n), dpi=500, pad_inches=0.0, quality=100)
     print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Made the plots'))
-    plt.show()
