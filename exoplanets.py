@@ -89,7 +89,7 @@ if __name__ == '__main__':
         params_file = sys.argv[1]
 
     n = 2.0
-    exoplanets = system(params_file, time_split=10000, img_split=100, n=n)
+    exoplanets = system(params_file, time_split=100000, img_split=100, n=n)
     print('Time : {} seconds; {}'.format(round(time.time() - start, 2), 'Initialized the Exoplanets system'))
     lum = exoplanets.output()
 
